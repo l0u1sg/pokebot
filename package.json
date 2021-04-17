@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "nodemon index.js",
-    ".": "node index.js"
+    ".": "node index.js",
+    "format": "prettier --write ."
   },
   "main": "index.js",
   "repository": "https://louisgallet95@github.com/l0u1sg/pokebot.git",
   "author": "Louis Gallet <louis.gallet@tumo.world>",
   "license": "MIT",
   "dependencies": {
+    "canvas": "^2.7.0",
     "discord.js": "^12.5.3",
     "dotenv": "^8.2.0",
-    "ffmpeg": "^0.0.4"
+    "ffmpeg": "^0.0.4",
+    "prettier": "^2.2.1"
   }
 }
