@@ -1,0 +1,16 @@
+{
+  "name": "pokebot",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "nodemon index.js",
+    ".": "node index.js"
+  },
+  "main": "index.js",
+  "repository": "https://louisgallet95@github.com/l0u1sg/pokebot.git",
+  "author": "Louis Gallet <louis.gallet@tumo.world>",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "ffmpeg": "^0.0.4"
+  }
+}
