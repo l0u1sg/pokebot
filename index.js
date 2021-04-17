@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const bot = new Discord.Client();
-const Canvas = require("canvas")
+const Canvas = require("canvas");
 require("dotenv").config();
 
 bot.on("ready", function () {
@@ -125,26 +125,44 @@ bot.on("message", (message) => {
           "Dommage, tu n'as pas répondu attends. Tu peux quand même retenter le quizz en refaisant la commande !!"
         );
       });
+
+
   }
+      if (message.content === "!pokejoin") {
+      bot.emit("guildMemberAdd", message.member);
+      return;
+    }
 });
 
-bot.on("guildMemberAdd", async member => {
-  const canvas = Canvas.createCanvas(1024, 700)
-  const ctx = canvas.getContext('2d')
-  const background = await Canvas.loadImage('./welcome.png')
-  ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
+bot.on("guildMemberAdd", async (member) => {
+  const canvas = Canvas.createCanvas(1024, 700);
+  const ctx = canvas.getContext("2d");
+  const background = await Canvas.loadImage("./image/welcome.png");
+  ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
   const applyText = (canvas, text) => {
-    const ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext("2d");
     let fontSize = 70;
     do {
-      ctx.font = `${fontSize -= 10}px sans-serif`
-    } while (ctx.measureText(text).width > canvas.width - 300)
-    return ctx.font
-  }
-  ctx.fillText(member.displayName, 20, 685)
-  ctx.beginPath()
-  ctx.arc(825, 175, 125, 0, Math.PI * 2, true)
-})
+      ctx.font = `${(fontSize -= 10)}px sans-serif`;
+    } while (ctx.measureText(text).width > canvas.width - 300);
+    return ctx.font;
+  };
+  ctx.fillText(member.displayName, 20, 685);
+  ctx.beginPath();
+  ctx.arc(825, 175, 125, 0, Math.PI * 2, true);
+  ctx.closePath();
+  ctx.clip();
+  const avatar = await Canvas.loadImage(member.user.displayAvatarURL);
+  ctx.drawImage(avatar, 700, 50, 256, 256);
+  const attachement = new Discord.MessageAttachment(
+    canvas.toBuffer(),
+    "./image/welcome-image.png"
+  );
+  channel.send(
+    `Bienvenue sur ce PokeServeur, <@${member.id}> ! <:carapuce:832967095435526185>`,
+    attachment
+  );
+});
 
 bot.login(process.env.BOT_TOKEN);
