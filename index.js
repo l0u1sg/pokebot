@@ -148,20 +148,24 @@ bot.on("guildMemberAdd", async (member) => {
     } while (ctx.measureText(text).width > canvas.width - 300);
     return ctx.font;
   };
+  console.warn("Je suis là")
   ctx.fillText(member.displayName, 20, 685);
   ctx.beginPath();
   ctx.arc(825, 175, 125, 0, Math.PI * 2, true);
   ctx.closePath();
   ctx.clip();
-  const avatar = await Canvas.loadImage(member.user.displayAvatarURL);
+  console.warn("Je suis la 2")
+  const avatar = await Canvas.loadImage("./image/welcome.png");
+  console.warn("je passe par là 3")
   ctx.drawImage(avatar, 700, 50, 256, 256);
   const attachement = new Discord.MessageAttachment(
     canvas.toBuffer(),
     "./image/welcome-image.png"
   );
-  channel.send(
+  console.warn("Je passe par là")
+  member.guild.channels.cache.get('711152454057853021').send(
     `Bienvenue sur ce PokeServeur, <@${member.id}> ! <:carapuce:832967095435526185>`,
-    attachment
+    attachement
   );
 });
 
